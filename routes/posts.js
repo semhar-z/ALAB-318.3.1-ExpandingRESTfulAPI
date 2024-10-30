@@ -77,4 +77,22 @@ router
     else next();
   });
 
+  // GET /api/users/:id/posts 
+router.get("/users/:id/posts", (req, res) => {
+  const userPosts = posts.filter(post => post.userId == req.params.id);
+  res.json(userPosts);
+});
+
+// GET /api/posts?userId=<VALUE> 
+router.get("/", (req, res) => {
+  const { userId } = req.query;
+  let filteredPosts = posts;
+
+  if (userId) {
+      filteredPosts = filteredPosts.filter(post => post.userId == userId);
+  }
+
+  res.json(filteredPosts);
+});
+
 module.exports = router;
